@@ -2,6 +2,8 @@ package acat.hibernate.dependency;
 
 import acat.hibernate.dao.LaptopDao;
 import acat.hibernate.dao.PersonDao;
+import acat.hibernate.dto.LaptopDto;
+import acat.hibernate.dto.PersonDto;
 import acat.hibernate.entity.Laptop;
 import acat.hibernate.entity.Person;
 
@@ -38,6 +40,14 @@ public class DependencyRegistry {
 	
 	public LaptopDao createLaptopDao() {
 		return new LaptopDao();
+	}
+	
+	public PersonDto createPersonDto(Person person) {
+		return new PersonDto(person);
+	}
+	
+	public LaptopDto createLaptopDto(Laptop laptop) {
+		return new LaptopDto(laptop);
 	}
 	
 	public StringBuilder createStringBuilder() {
