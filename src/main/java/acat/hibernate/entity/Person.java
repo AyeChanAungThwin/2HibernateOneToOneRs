@@ -6,7 +6,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +30,16 @@ public class Person extends BaseEntity<Long> implements Serializable {
 	private String phNo;
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "laptop_id")
 	private Laptop laptop;
+	
+	@Column(name = "laptop_id", insertable = false, updatable = false)
+	private Long laptopId; //Foreign key creation for HQL Query
+	
+	@PreRemove
+	public void ignoreRemovingLaptop() {
+		laptop = null;
+	}
 
 	public FullName getFullName() {
 		return fullName;
