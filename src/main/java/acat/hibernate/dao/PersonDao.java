@@ -46,4 +46,11 @@ public class PersonDao extends AbstractDao<Person> {
 		// TODO Auto-generated method stub
 		super.deleteById(entityId);
 	}
+
+	@Override
+	public void onDeleteSetNull(Class<?> otherEntity, Long id) {
+		// TODO Auto-generated method stub
+		super.onDeleteSetNull(otherEntity, id);
+	}
+
 }
