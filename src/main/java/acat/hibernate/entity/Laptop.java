@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
+
+import acat.hibernate.dao.LaptopDao;
+import acat.hibernate.dependency.DependencyRegistry;
 
 @Entity
 @Table(name = "laptop")
@@ -20,7 +24,14 @@ public class Laptop extends BaseEntity<Long> implements Serializable {
 	
 	@Column(name = "description")
 	private String description;
-
+	
+	@PreRemove
+	public void foreignKeyAtPersonOnDeleteSetNull() {
+		DependencyRegistry dependency = DependencyRegistry.getInstance();
+		LaptopDao dao = dependency.createLaptopDao();
+		dao.onDeleteSetNull(Person.class, super.getId());
+	}
+	
 	public String getBrand() {
 		return brand;
 	}
