@@ -7,7 +7,7 @@
 
 ## Explanation
 ###### Person Entity ######
--  ***In Person Entity***, we use **CascadeType.ALL** and so, when you delete a person, it will **ALSO** deletes a laptop two related to deleted person. We can avoid this using the code below.
+-  ***In Person Entity***, we use **CascadeType.ALL** and so, when you delete a person, it will **ALSO** deletes a laptop related to deleted person. We can avoid this using the code below.
 -  Before deleting a person, we need to remove the laptop object in relation with person who's going to be deleted.
 ```
 	@PreRemove
@@ -15,6 +15,8 @@
 		laptop = null;
 	}
 ```
+-  But if we used **CascadeType.PERSIST**, it will only deletes a person. 
+
 -  We want to use HQL query. Can we get the foreign key from **Person Entity**?
 - Of course, you can!
 -  Normally, we create the relationship like this.
@@ -53,7 +55,5 @@
 		dao.onDeleteSetNull(Person.class, super.getId());
 	}
 ```
-###### Conclusion ######
--  We had to do like this because **CascadeType.ALL** is  messing up everything if you use or not.
--  If we use that, it deletes every rows in relations when deleting a data. For example, in this OneToOneRs, if you delete a person, laptop will be deleted. That's why we have to remove the laptop object (laptop=null;) at @PreRemove before deleting a person.
--  But if we use **CascadeType.PERSIST** in _Person Entity_, you don't need to use @PreRemove.
+## Electronics Engineer-cum-J2EE Backend Developer ##
+-  Created by - Aye Chan Aung Thwin
