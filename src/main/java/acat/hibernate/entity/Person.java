@@ -29,6 +29,10 @@ public class Person extends BaseEntity<Long> implements Serializable {
 	@Column(name = "phNo")
 	private String phNo;
 	
+	/* If you use CascadeType.PERSIST here, 
+	 * you don't need method under @PreRemove annotation
+	 * or you don't need to set laptop=null.
+	 */
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "laptop_id")
 	private Laptop laptop;
@@ -38,7 +42,7 @@ public class Person extends BaseEntity<Long> implements Serializable {
 	
 	@PreRemove
 	public void ignoreRemovingLaptopWhenDeletingAPerson() {
-		laptop = null;
+		laptop = null; //This method is not necessary if CascadeType is PERSIST!
 	}
 
 	public FullName getFullName() {
