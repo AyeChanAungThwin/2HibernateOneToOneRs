@@ -26,7 +26,7 @@ public class Laptop extends BaseEntity<Long> implements Serializable {
 	private String description;
 	
 	@PreRemove
-	public void foreignKeyAtPersonOnDeleteSetNull() {
+	public void onDeleteSetNullToThisForeignKeyInPerson() {
 		DependencyRegistry dependency = DependencyRegistry.getInstance();
 		LaptopDao dao = dependency.createLaptopDao();
 		dao.onDeleteSetNull(Person.class, super.getId());
