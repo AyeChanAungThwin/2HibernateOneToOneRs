@@ -37,7 +37,7 @@ public class Person extends BaseEntity<Long> implements Serializable {
 	private Long laptopId; //Foreign key creation for HQL Query
 	
 	@PreRemove
-	public void ignoreRemovingLaptop() {
+	public void ignoreRemovingLaptopWhenDeletingAPerson() {
 		laptop = null;
 	}
 
