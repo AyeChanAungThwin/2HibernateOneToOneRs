@@ -8,6 +8,7 @@
 
 ## About
 - [X] Data insertion
+- [ ] Fetch data
 - [ ] Update data
 - [X] Data deletion
 - [X] ON DELETE SET NULL
