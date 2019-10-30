@@ -1,6 +1,7 @@
 # Hibernate (One to One Relationship)
 ## Details
 > There're two entities; **Person** and **Laptop**.
+> They have one attribute in common; _id_. And so we created a super class for them.
 > We connect tables; "person" and "laptop" with one to one relationship.
 > Hibernate will auto generate the table in MySQL Server due to the addition of "<property name="hibernate.hbm2ddl.auto">update</property>" in hibernate.cfg.xml.
 > If you change its value to "create", it will create a table using "DROP TABLE IS EXISTS TABLE_NAME."
