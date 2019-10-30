@@ -6,11 +6,11 @@
 > If you change its value to "create", it will create a table using "DROP TABLE IS EXISTS TABLE_NAME."
 
 ## About
-[X] Data insertion
-[] Update data
-[X] Data deletion
-[X] ON DELETE SET NULL
-[] ON DELETE CASCADE
+- [X] Data insertion
+- [ ] Update data
+- [X] Data deletion
+- [X] ON DELETE SET NULL
+- [ ] ON DELETE CASCADE
 
 ## Explanation
 ###### Person Entity ######
