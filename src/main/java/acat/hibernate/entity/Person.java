@@ -26,7 +26,7 @@ public class Person extends BaseEntity<Long> implements Serializable {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "phNo")
+	@Column(name = "ph_no")
 	private String phNo;
 	
 	/* If you use CascadeType.PERSIST here, 
