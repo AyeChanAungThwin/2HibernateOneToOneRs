@@ -71,7 +71,7 @@ public void onDeleteSetNullToThisForeignKeyInPerson() {
 in hibernate.cfg.xml, Hibernate won't generate the table in your relational database server. But you can create it yourself.
 -  If you change its value to "create", Hibernate will drop the table and create whenever you run the program.
 
-##MySQL database##
+## MySQL database ##
 -  When you use Hibernate to create a table, it never creates foreign key with ON DELETE SET NULL, but you can create it yourself.
 ```
 CREATE TABLE person (
