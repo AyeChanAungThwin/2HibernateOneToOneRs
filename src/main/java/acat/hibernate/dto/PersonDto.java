@@ -2,10 +2,10 @@ package acat.hibernate.dto;
 
 import java.io.Serializable;
 
-import acat.hibernate.entity.BaseEntity;
-import acat.hibernate.entity.FullName;
-import acat.hibernate.entity.Laptop;
-import acat.hibernate.entity.Person;
+import acat.hibernate.model.BaseEntity;
+import acat.hibernate.model.FullName;
+import acat.hibernate.model.Laptop;
+import acat.hibernate.model.Person;
 
 public class PersonDto extends BaseEntity<Long> implements Serializable {
 

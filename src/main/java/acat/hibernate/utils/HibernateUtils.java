@@ -5,8 +5,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import acat.hibernate.entity.Laptop;
-import acat.hibernate.entity.Person;
+import acat.hibernate.model.Laptop;
+import acat.hibernate.model.Person;
 
 public class HibernateUtils {
 	

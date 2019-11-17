@@ -2,8 +2,8 @@ package acat.hibernate.dto;
 
 import java.io.Serializable;
 
-import acat.hibernate.entity.BaseEntity;
-import acat.hibernate.entity.Laptop;
+import acat.hibernate.model.BaseEntity;
+import acat.hibernate.model.Laptop;
 
 public class LaptopDto extends BaseEntity<Long> implements Serializable {
 

@@ -1,9 +1,10 @@
-package acat.hibernate.entity;
+package acat.hibernate.model;
 
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
@@ -25,10 +26,13 @@ public class Laptop extends BaseEntity<Long> implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
+	@OneToOne(mappedBy = "laptop")
+	private Person person;
+	
 	@PreRemove
 	public void onDeleteSetNullToThisForeignKeyInPerson() {
 		DependencyRegistry dependency = DependencyRegistry.getInstance();
-		LaptopDao dao = dependency.createLaptopDao();
+		LaptopDao dao = (LaptopDao) dependency.getInstance(LaptopDao.class);
 		dao.onDeleteSetNull(Person.class, super.getId());
 	}
 	

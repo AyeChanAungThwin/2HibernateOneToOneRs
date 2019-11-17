@@ -2,7 +2,7 @@ package acat.hibernate.dao;
 
 import java.util.List;
 
-import acat.hibernate.entity.Laptop;
+import acat.hibernate.model.Laptop;
 
 public class LaptopDao extends AbstractDao<Laptop> {
 	

@@ -2,7 +2,7 @@ package acat.hibernate.dao;
 
 import java.util.List;
 
-import acat.hibernate.entity.Person;
+import acat.hibernate.model.Person;
 
 public class PersonDao extends AbstractDao<Person> {
 	

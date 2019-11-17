@@ -113,7 +113,7 @@ public abstract class AbstractDao<T extends Serializable> implements IAbstractDa
 		try {
 			startOperation();
 			DependencyRegistry dependency = DependencyRegistry.getInstance();
-			StringBuilder sb = dependency.createStringBuilder();
+			StringBuilder sb = (StringBuilder) dependency.getInstance(StringBuilder.class);
 			sb.append("update ");
 			sb.append(otherEntity.getSimpleName());
 			sb.append(" set ");

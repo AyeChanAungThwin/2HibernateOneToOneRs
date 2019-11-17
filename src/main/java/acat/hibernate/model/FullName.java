@@ -1,4 +1,4 @@
-package acat.hibernate.entity;
+package acat.hibernate.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

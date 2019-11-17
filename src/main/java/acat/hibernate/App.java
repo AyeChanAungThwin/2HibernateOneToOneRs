@@ -2,46 +2,103 @@ package acat.hibernate;
 
 import java.util.List;
 
+import acat.hibernate.controller.LaptopController;
+import acat.hibernate.controller.PersonController;
 import acat.hibernate.dao.LaptopDao;
 import acat.hibernate.dao.PersonDao;
 import acat.hibernate.dependency.DependencyRegistry;
 import acat.hibernate.dto.LaptopDto;
-import acat.hibernate.entity.FullName;
-import acat.hibernate.entity.Laptop;
-import acat.hibernate.entity.Person;
+import acat.hibernate.model.FullName;
+import acat.hibernate.model.Laptop;
+import acat.hibernate.model.Person;
+import acat.hibernate.view.LaptopView;
+import acat.hibernate.view.PersonView;
+import acat.hibernate.view.Status;
 
 public class App {
 	
 	public static void main( String[] args ) {
-		
+		demo1();
+    }
+	
+	public static void demo1() {
 		DependencyRegistry dependency = DependencyRegistry.getInstance(); //Dependency
 		
-		Laptop laptop1 = dependency.createLaptop();
+		Laptop laptop1 = (Laptop) dependency.getInstance(Laptop.class);
+		laptop1.setBrand("Lenovo");
+		laptop1.setDescription("It is Lenovo laptop.");
+		
+		Laptop laptop2 = (Laptop) dependency.getInstance(Laptop.class);
+		laptop2.setBrand("HP");
+		laptop2.setDescription("It is HP laptop.");
+		
+		Person person = (Person) dependency.getInstance(Person.class); //Dependency Injected
+		person.setFullName(new FullName("Mr", "Dumb"));
+		person.setEmail("macisnoob@gmail.com");
+		person.setPhNo("+2348089320");
+		person.setLaptop(laptop1);
+		
+		PersonDao personDao = (PersonDao) dependency.getInstance(PersonDao.class); //Dependency Injected
+		personDao.save(person); //Create
+		
+		List<Person> people = personDao.findAll(); //Retrieve
+		for (Person prn: people) {
+			//String is immutable in java.
+			StringBuilder sb=(StringBuilder) dependency.getInstance(StringBuilder.class); //To reduce heap size
+			sb.append("Person [id="+prn.getId());
+			sb.append(", name="+prn.getFullName().getFirstName());
+			sb.append(" "+prn.getFullName().getLastName());
+			sb.append(", email="+prn.getEmail());
+			sb.append(", phNo="+prn.getPhNo());
+			sb.append(", "+prn.getLaptop().getBrand());
+			sb.append(", "+prn.getLaptop().getDescription()+"]");
+			System.out.println(sb.toString()+" have been inserted!");
+		}
+		
+		LaptopDao laptopDao = (LaptopDao) dependency.getInstance(LaptopDao.class);
+		laptopDao.save(laptop2); //Create
+		
+		Laptop updateLaptop = laptopDao.findOne(2L);
+		updateLaptop.setBrand("Mac Book");
+		updateLaptop.setDescription("It is just wasting your money!");
+		
+		laptopDao.update(updateLaptop); //Update
+		
+		Laptop deleteLaptop = new Laptop();
+		deleteLaptop.setId(1L); //Once you get ID for an object, you can DELETE it!
+		laptopDao.delete(deleteLaptop); //Delete
+	}
+	
+
+	public static void demo2() {
+		DependencyRegistry dependency = DependencyRegistry.getInstance(); //Dependency
+		
+		Laptop laptop1 = (Laptop) dependency.getInstance(Laptop.class);
 		laptop1.setBrand("Dell");
 		laptop1.setDescription("It is dell laptop.");
 		
-		Laptop laptop2 = dependency.createLaptop();
+		Laptop laptop2 = (Laptop) dependency.getInstance(Laptop.class);
 		laptop2.setBrand("System76");
 		laptop2.setDescription("This is awesome!");
 		
-		LaptopDao laptopDao = dependency.createLaptopDao(); //Dependency Injected
-		laptopDao.save(laptop1);
-		laptopDao.save(laptop2);
+		LaptopDao laptopDao = (LaptopDao) dependency.getInstance(LaptopDao.class); //Dependency Injected
+		laptopDao.save(laptop1); //Create
+		laptopDao.save(laptop2); //Create
 		
-		Person person = dependency.createPerson(); //Dependency Injected
+		Person person = (Person) dependency.getInstance(Person.class); //Dependency Injected
 		person.setFullName(new FullName("Dwayne", "Johnson"));
 		person.setEmail("dwaynejohnson@gmail.com");
 		person.setPhNo("+1549724440");
 		Laptop ltp = laptopDao.findOne(2); //select * from laptop where id=2;
 		person.setLaptop(ltp);
 		
-		PersonDao personDao = dependency.createPersonDao(); //Dependency Injected
-		personDao.save(person);
+		PersonDao personDao = (PersonDao) dependency.getInstance(PersonDao.class); //Dependency Injected
+		personDao.save(person); //Create
 		
-		List<Person> people = personDao.findAll();
+		List<Person> people = personDao.findAll(); //Retrieve
 		for (Person prn: people) {
 			//String is immutable in java.
-			StringBuilder sb=dependency.createStringBuilder(); //To reduce heap size
+			StringBuilder sb=(StringBuilder) dependency.getInstance(StringBuilder.class); //To reduce heap size
 			sb.append("Person [id="+prn.getId());
 			sb.append(", name="+prn.getFullName().getFirstName());
 			sb.append(" "+prn.getFullName().getLastName());
@@ -62,12 +119,29 @@ public class App {
 		}
 		*/
 		
-		Laptop laptop = laptopDao.findOne(2);
-		LaptopDto laptopDto = dependency.createLaptopDto(laptop);
+		Laptop laptop = laptopDao.findOne(2); //Retrieve
+		LaptopDto laptopDto = new LaptopDto(laptop); //DTO
 		System.out.println(laptopDto.getBrand());
 		
 		if (laptop!=null) {
-			laptopDao.delete(laptop);
+			laptopDao.delete(laptop); //Delete
 		}
-    }
+	}
+	
+	public static void demoMVC1() {
+		//Id is auto generated by Hibernate. So, no need to set it!
+		LaptopController ltpController = new LaptopController(new Laptop(), new LaptopView());
+		ltpController.setLaptopBrand("System76");
+		ltpController.setLaptopDescription("Hardware can be configured yourself!");
+		ltpController.updateView();
+		
+		PersonController controller = new PersonController(new Person(), new PersonView());
+		controller.setPersonFullName(new FullName("Aye Chan", "Aung Thwin"));
+		controller.setPersonEmail("ayechanaungthwin@gmail.com");
+		controller.setPhoneNo("09782374982");
+		controller.setLaptopOwnedByPerson(ltpController.getLaptop());
+		controller.updateView();
+		
+		controller.saveToDatabase(Status.SHOW);
+	}
 }

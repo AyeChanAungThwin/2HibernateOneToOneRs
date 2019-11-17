@@ -1,11 +1,14 @@
 package acat.hibernate.dependency;
 
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+
 import acat.hibernate.dao.LaptopDao;
 import acat.hibernate.dao.PersonDao;
 import acat.hibernate.dto.LaptopDto;
 import acat.hibernate.dto.PersonDto;
-import acat.hibernate.entity.Laptop;
-import acat.hibernate.entity.Person;
+import acat.hibernate.model.Laptop;
+import acat.hibernate.model.Person;
 
 public class DependencyRegistry {
 
@@ -26,31 +29,29 @@ public class DependencyRegistry {
 		return instance;
 	}
 	
-	public Person createPerson() {
-		return new Person();
-	}
-	
-	public Laptop createLaptop() {
-		return new Laptop();
-	}
-	
-	public PersonDao createPersonDao() {
-		return new PersonDao();
-	}
-	
-	public LaptopDao createLaptopDao() {
-		return new LaptopDao();
-	}
-	
-	public PersonDto createPersonDto(Person person) {
-		return new PersonDto(person);
-	}
-	
-	public LaptopDto createLaptopDto(Laptop laptop) {
-		return new LaptopDto(laptop);
-	}
-	
-	public StringBuilder createStringBuilder() {
-		return new StringBuilder();
+	@SuppressWarnings("unchecked")
+	public Object getInstance(Class className) {
+		try {
+			return className.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
