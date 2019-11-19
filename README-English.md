@@ -47,7 +47,7 @@ private Long laptopId; //Foreign key creation for HQL Query
 -  And we also need to join that column in **"private Laptop laptop;"** to inform Hibernate that we're will be getting the foreign key of **Laptop Entity** with _laptopId_;
 
 ## __Laptop Entity__
--  Unfortunately, Hibernate doesn't support **ON DELETE SET NULL** mode to foreign key. So, you have to create a query yourself and update the foreign key to set null.
+-  Unfortunately, Hibernate doesn't support **ON DELETE SET NULL** mode to foreign key. Of course, not every database server support that. So, you have to create a query yourself and update the foreign key to set null.
 -  Whenever we're making a query, if we use an HQL, ***syntax of sql query*** will be _READY_ for **ANY relational database servers** like Oracle, MS SQL, MySQL, etc. That's the power of Hibernate.
 -  This is Java and so let's make it ROWA if you don't want to use _NativeQuery_. But using _NativeQuery_ is a good thing because Hibernate has a problem of its own in some situations.
 -  But for this, I've tested for many times in different database servers and you can use it without any problems.
