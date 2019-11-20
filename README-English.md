@@ -174,6 +174,7 @@ public class Person {
     </td>
   </tr>
 </table>
+
 - There are 5 cascade types; DETACH, MERGE, PERSIST, REFERSH and REMOVE. In here, we cascade with all of them i.e., ALL.
 - Normally, we use ALL, it's not a good idea to use ALL but if we didn't use it, it gives a problem in data persistance. So, I recommanded to use ALL.
 - The word "cascade" means it's connected. By the time, you remove a person, it will also remove the laptop which is in relationship with that person.
