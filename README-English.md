@@ -151,16 +151,19 @@ public class Person {
     <th>Laptop Entity</th> 
   </tr>
   <tr>
-    <td>@OneToOne(cascade = CascadeType.ALL)</td>
-    <td>@OneToOne(mappedBy = "laptop")</td>
-  </tr>
-  <tr>
-    <td>@JoinColumn(name = "laptop_id")</td>
-    <td>private Person person;</td>
-  </tr>
-  <tr>
-    <td>private Laptop laptop;</td>
-    <td></td>
+    <td>
+    <pre>
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "laptop_id")
+    private Laptop laptop;
+    </pre>
+    </td>
+    <td>
+    <pre>
+    @OneToOne(mappedBy = "laptop")
+    private Person person;
+    </pre>
+    </td>
   </tr>
 </table>
 ## Electronics Engineer-cum-J2EE Backend Developer ##
