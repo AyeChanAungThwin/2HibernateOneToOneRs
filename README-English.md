@@ -176,9 +176,9 @@ public class Person {
 </table>
 
 - There are 5 cascade types; DETACH, MERGE, PERSIST, REFERSH and REMOVE. In here, we cascade with all of them i.e., ALL.
-- Normally, we use ALL, it's not a good idea to use ALL but if we didn't use it, it gives a problem in data persistance. So, I recommanded to use ALL.
+- It's not a good idea to use **ALL** but if we didn't use it, it gives a problem in data persistance. So, I **recommended** to use **ALL**.
 - The word "cascade" means it's connected. By the time, you remove a person, it will also remove the laptop which is in relationship with that person.
-- But we can fix it using @PreRemove. As by its name, it removes some property before deleting a row.
+- But we can fix it using @PreRemove. As by definition of its name, it removes some property before deleting a row.
 ```
 @PreRemove
 public void ignoreRemovingLaptopWhenDeletingAPerson() {
@@ -187,6 +187,20 @@ public void ignoreRemovingLaptopWhenDeletingAPerson() {
 ```
 - Before deleting a person, we temporarily remove the laptop in relationship with that person by setting laptop to null.
 - So, when person is removed, laptop is not removed from the table. That's how we violates the cascade type ALL. That's how we fix it!
+
+## Creating yourself ON DELETE SET NULL with Hibernate
+- We're gonna create ON DELETE SET NULL function for every database server. So, we have to use HQL Query for that. I'm not gonna explain my Java code here. Just try to understand it yourself. You can use it in anywhere. I'll just tell you how you can use it.
+- We're gonna set the foreign key of laptop in person table to null when removing laptop. So, this is in Laptop Entity.
+- Here's how it works. Before deleting a laptop, we update the foreign key of laptop to null which is in person table using @PreRemove
+```
+@PreRemove
+public void onDeleteSetNullToThisForeignKeyInPerson() {
+	DependencyRegistry dependency = DependencyRegistry.getInstance();
+	LaptopDao dao = (LaptopDao) dependency.getInstance(LaptopDao.class);
+	dao.onDeleteSetNull(Person.class, super.getId());
+}
+```
+- We don't execute Hibernate in Entity. But this is the only way to get it easily. Or you will have to update the foreign key id in the other table everytime before you make a deletion.
 
 ## Electronics Engineer-cum-J2EE Backend Developer ##
 -  Created by - Aye Chan Aung Thwin
