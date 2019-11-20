@@ -1,101 +1,167 @@
 # Hibernate (One to One Relationship)
 ## Abstract
-> There're two entities; **Person** and **Laptop**.
-> They have one attribute in common; _id_. And so we created a super class **BaseEntity.java** for them.
-> We connect tables; "person" and "laptop" with one to one relationship.
+> You have to use **Hibernate** when we want to make CRUD operations in relational database server using Java code.
+> If you have _NEVER_ done a project with the basic connectivity between **Java and MySQL Server**, I suggest you learning [this](https://www.javatpoint.com/example-to-connect-to-the-mysql-database) first.
 
 ## About
 - [X] CRUD with Hibernate
-- [X] Data insertion
-- [X] Fetch data
-- [X] Update data
-- [X] Data deletion
+- [X] Insert data using Hibernate
+- [X] Fetch data using Hibernate
+- [X] Update data using Hibernate
+- [X] Delete data using Hibernate
 - [X] ON DELETE SET NULL
 - [ ] ON DELETE CASCADE
 
-## Explanation of Entities
-## __Person Entity__
--  ***In Person Entity***, we use **CascadeType.ALL** and so, when you delete a person, it will **ALSO** deletes a laptop related to deleted person. We can avoid this using the code below.
--  Before deleting a person, we need to remove the laptop object in relation with person who's going to be deleted.
-```
-@PreRemove
-public void ignoreRemovingLaptopWhenDeletingAPerson() {
-	laptop = null;
-}
-```
--  But if we used **CascadeType.PERSIST**, it will only deletes a person. 
+## What is Hibernate?
+- [About Hibernate ORM](https://hibernate.org/orm/)
+- Hibernate ORM (Hibernate in short) is an object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational databases like Oracle, MySQL, MS SQL, etc. Hibernate also provides data query and retrieval facilities.
+- Hibernate provides transparent persistence for Plain Old Java Objects (POJOs). The only strict requirement for a persistent class is a no-argument constructor, though not necessarily (public) because the function of DTO still stands.
+- Hibernate provides HQL query i.e., same query for every relational database server.
 
--  We want to use HQL query. Can we get the foreign key from **Person Entity**?
-- Of course, you can!
--  Normally, we create the relationship like this.
-```
-@OneToOne(cascade = CascadeType.ALL)
-private Laptop laptop;
-```
--  And Hibernate do creates **"laptop_id"** in person table but can't access from _HQL_ but _NativeSQL_. We needed foreign key of **laptop_id** from Java code.
--  We get the foreign key by creating the following Java code.
-```
-@OneToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "laptop_id")
-private Laptop laptop;
+# What is DAO?
+- DAO(Data Access Object) is the relationship between SQL Server and Java Object. It fetches the data from database and store it in Java Object.
 
-@Column(name = "laptop_id", insertable = false, updatable = false)
-private Long laptopId; //Foreign key creation for HQL Query
-```
--  We created the new instance ***"private Long laptopId;"*** and name the column as "**laptop_id**."
--  We're not creating another field in table. We're just getting the foreign key of ***"Laptop Entity"*** and so set **false** to ~~"insertable"~~ and ~~"updatable."~~
--  And we also need to join that column in **"private Laptop laptop;"** to inform Hibernate that we're will be getting the foreign key of **Laptop Entity** with _laptopId_;
+# What is DTO?
+- DTO(Data Transfer Object) is the carrier of data of an object. In Hibernate, when we get a method from dao, **Session** of Hibernate is closed and lead to LazyInitializationException. So basically, DTO saves and use to transfer data of DAO.
 
-## __Laptop Entity__
--  Unfortunately, Hibernate doesn't support **ON DELETE SET NULL** mode to foreign key. Of course, not every database server support that. So, you have to create a query yourself and update the foreign key to set null.
--  Whenever we're making a query, if we use an HQL, ***syntax of sql query*** will be _READY_ for **ANY relational database servers** like Oracle, MS SQL, MySQL, etc. That's the power of Hibernate.
--  This is Java and so let's make it ROWA if you don't want to use _NativeQuery_. But using _NativeQuery_ is a good thing because Hibernate has a problem of its own in some situations.
--  But for this, I've tested for many times in different database servers and you can use it without any problems.
--  Check **onDeleteSetNull method** I created in _AbstractDAO.java_.
--  It's just creating an HQL query; "update Person set laptopId=null where laptopId=:currentId" in that method.
--  After that, we use that method in **Laptop Entity**.
--  Before removing laptop, we updated the "laptop_id" in person to "NULL" and then remove it.
+## Setting up the project
+- Press Alt+Shift+N and create _Maven Project_.
+- Add the following dependencies in pom.xml.
 ```
-@PreRemove
-public void onDeleteSetNullToThisForeignKeyInPerson() {
-	DependencyRegistry dependency = DependencyRegistry.getInstance();
-	LaptopDao dao = dependency.createLaptopDao();
-	dao.onDeleteSetNull(Person.class, super.getId());
-}
+<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+    <version>5.4.7.Final</version>
+</dependency>
+	
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.18</version>
+</dependency>
 ```
-- You also need to add in Laptop entity for **One to One Relationship**
-```
-@OneToOne(mappedBy = "laptop")
-private Person person;
-```
-## __hibernate.cfg.xml__
--  If you didn't add
+- Add [hibernate.cfg.xml](https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/session-configuration.html) under src/main/java
+- If you didn't add
 ```
 "<property name="hibernate.hbm2ddl.auto">update</property>"
 ```
-in hibernate.cfg.xml, Hibernate won't generate the table in your relational database server. But you can create it yourself.
--  If you change its value to "create", Hibernate will drop the table and create whenever you run the program.
+in hibernate.cfg.xml, Hibernate won't generate the table in your relational database server. But you can write SQL query and create it yourself.
+- If you change its value to "create", Hibernate will drop the table and create a new table whenever you run the program.
+- With HibernateUtils, get the connection between your database server and Java.
 
-## MySQL database ##
--  When you use Hibernate to create a table, it never creates foreign key with ON DELETE SET NULL, but you can create it yourself.
-```
-CREATE TABLE person (
-	id BIGINT AUTO_INCREMENT NOT NULL,
-	name VARCHAR(255),
-	email VARCHAR(255),
-	ph_no VARCHAR(255),
-	laptop_id BIGINT,
-	PRIMARY KEY (id),
-	FOREIGN KEY (laptop_id) REFERENCES laptop (id) ON DELETE SET NULL
+## Diagrams
+- ER Diagram
+<img src="images/erd.png" alt="Person with 4 attributes, ER Diagram">
+- Relational Schema
+<img src="images/relational.png" alt="Person with 4 attributes, Relational Schema">
+- SQL Query
+<pre>
+CREATE TABLE laptop
+(
+  id BIGINT AUTO_INCREMENT NOT NULL,
+  brand VARCHAR(50),
+  description VARCHAR(255),
+  PRIMARY KEY (id)
 );
 
-CREATE TABLE laptop (
-	id BIGINT AUTO_INCREMENT NOT NULL,
-	brand VARCHAR(255),
-	description VARCHAR(255),
-	PRIMARY KEY (id)
+CREATE TABLE person
+(
+  id BIGINT AUTO_INCREMENT NOT NULL,
+  first_name VARCHAR(20),
+  last_name VARCHAR(20),
+  ph_no VARCHAR(20),
+  email VARCHAR(25),
+  laptop_id BIGINT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (laptop_id) REFERENCES laptop(id) ON DELETE SET NULL
 );
+</pre>
+
+## Java POJO for above diagrams
+- Hibernate will create table in database server with the following POJO. Pretty Easy, right?
+```
+public class Person {
+	private Long id;
+	private String name;
+	private String email;
+	private String ph_no;
+	
+	//getters and setters
+}
+```
+- But We're not done yet! We need to signals the Hibernate with the following annotations.
+```
+@Entity
+@Table(name="person")
+public class Person {
+	@Id
+	@GenerateValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name="name");
+	private String name;
+	
+	@Column(name="email");
+	private String email;
+	
+	@Column(name="ph_no");
+	private String phNo;
+}
 ```
 
+## Explanation of Annotations
+- **@Entity**
+  - To signals Hibernate that this is an Entity.
+- **@Table(name="custom_name")**
+  - To signals Hibernate that this is the table. If you only use **@Table**, Hibernate will automatically set the name with the name of the Java Class but will lowercase characaters i.e., "person."
+  - **More with @Table annotation**
+    - **@UniqueConstraint** is used when the columns cannot have duplicate values. Or you can set it in **@Column(unique=true)** and default is false.
+```
+@Table(name = "person", uniqueConstraints = {
+		@UniqueConstraint(
+				columnNames = {"id", "email", "ph_no"}
+		)
+})
+```
+- **@Id**
+  - To signals Hibernate that this is an ID.
+  - Use data type Long rather than Integer. because of
+     - Integer = (−32,767 to +32,767) range. 16 bits in size.
+     - Long = (−2,147,483,647 to +2,147,483,647) range. 32 bits in size.
+- **@GenerateValue(strategy=GenerationType.IDENTITY)**
+  - To signals Hibernate that this ID will auto increment its value.
+- **@Column(name="custom_name")**
+  - To signals Hibernate that this is a column.
+  - **More with @Column annotation**
+    - unique (default=false)
+    - updatable (default=true)
+    - nullable (default=true)
+    - length (default=255)
+    - [precision](https://stackoverflow.com/questions/4078559/how-to-specify-doubles-precision-on-hibernate)
+    - [columnDefinition](https://stackoverflow.com/questions/16078681/what-properties-does-column-columndefinition-make-redundant)
+    - [scale](https://stackoverflow.com/questions/4078559/how-to-specify-doubles-precision-on-hibernate)
+    
+## Explaining Entities in Project
+- We get the **One-To-One-Relationship** with the following codes.
+<table style="width:100%">
+  <tr>
+    <th>Person Entity</th>
+    <th>Laptop Entity</th> 
+  </tr>
+  <tr>
+    <td>@OneToOne(cascade = CascadeType.ALL)</td>
+    <td>@OneToOne(mappedBy = "laptop")</td>
+  </tr>
+  <tr>
+    <td>@JoinColumn(name = "laptop_id")</td>
+    <td>private Person person;</td>
+  </tr>
+  <tr>
+    <td>private Laptop laptop;</td>
+    <td></td>
+  </tr>
+</table>
 ## Electronics Engineer-cum-J2EE Backend Developer ##
 -  Created by - Aye Chan Aung Thwin
