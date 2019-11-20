@@ -191,7 +191,7 @@ public void ignoreRemovingLaptopWhenDeletingAPerson() {
 ## Creating yourself ON DELETE SET NULL with Hibernate
 - We're gonna create ON DELETE SET NULL function for every database server. So, we have to use HQL Query for that. I'm not gonna explain my Java code here. Just try to understand it yourself. You can use it in anywhere. I'll just tell you how you can use it.
 - We're gonna set the foreign key of laptop in person table to null when removing laptop. So, this is in Laptop Entity.
-- Here's how it works. Before deleting a laptop, we update the foreign key of laptop to null which is in person table using @PreRemove
+- Here's how it works. Before deleting a laptop, we update the foreign key of laptop to null which is in person table using @PreRemove annotation.
 ```
 @PreRemove
 public void onDeleteSetNullToThisForeignKeyInPerson() {
@@ -200,6 +200,7 @@ public void onDeleteSetNullToThisForeignKeyInPerson() {
 	dao.onDeleteSetNull(Person.class, super.getId());
 }
 ```
+- There're 2 parameters in onDeleteSetNull method. The first parameter needs the class containing the foreign key and the second one needs the id of deletion.
 - We don't execute Hibernate in Entity. But this is the only way to get it easily. Or you will have to update the foreign key id in the other table everytime before you make a deletion.
 
 ## Electronics Engineer-cum-J2EE Backend Developer ##
