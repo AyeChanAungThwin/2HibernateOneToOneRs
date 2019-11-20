@@ -21,27 +21,40 @@
 - Relational Schema
 <img src="images/relational.png" alt="Person with 4 attributes, Relational Schema">
 - SQL Query
-<pre>
+<table style="width:100%">
+  <tr>
+    <th>laptop table</th>
+    <th>person table</th> 
+  </tr>
+  <tr>
+    <td>
+    <pre>
 CREATE TABLE laptop
 (
-	id BIGINT AUTO_INCREMENT NOT NULL,
-	brand VARCHAR(50),
-	description VARCHAR(255),
-	PRIMARY KEY (id)
+id BIGINT AUTO_INCREMENT NOT NULL,
+brand VARCHAR(50),
+description VARCHAR(255),
+PRIMARY KEY (id)
 );
-
+    </pre>
+    </td>
+    <td>
+    <pre>
 CREATE TABLE person
 (
-	id BIGINT AUTO_INCREMENT NOT NULL,
-	first_name VARCHAR(20),
-	last_name VARCHAR(20),
-	ph_no VARCHAR(20),
-	email VARCHAR(25),
-	laptop_id BIGINT,
-	PRIMARY KEY (id),
-	FOREIGN KEY (laptop_id) REFERENCES laptop(id) ON DELETE SET NULL
+id BIGINT AUTO_INCREMENT NOT NULL,
+first_name VARCHAR(20),
+last_name VARCHAR(20),
+ph_no VARCHAR(20),
+email VARCHAR(25),
+laptop_id BIGINT,
+PRIMARY KEY (id),
+FOREIGN KEY (laptop_id) REFERENCES laptop(id) ON DELETE SET NULL
 );
-</pre>
+    </pre>
+    </td>
+  </tr>
+</table>
 
 ## Explaining Entities in Project
 - We get the **One-To-One-Relationship** with the following codes.
