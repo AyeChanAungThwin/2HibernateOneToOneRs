@@ -60,22 +60,22 @@ in hibernate.cfg.xml, Hibernate won't generate the table in your relational data
 <pre>
 CREATE TABLE laptop
 (
-  id BIGINT AUTO_INCREMENT NOT NULL,
-  brand VARCHAR(50),
-  description VARCHAR(255),
-  PRIMARY KEY (id)
+	id BIGINT AUTO_INCREMENT NOT NULL,
+	brand VARCHAR(50),
+	description VARCHAR(255),
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE person
 (
-  id BIGINT AUTO_INCREMENT NOT NULL,
-  first_name VARCHAR(20),
-  last_name VARCHAR(20),
-  ph_no VARCHAR(20),
-  email VARCHAR(25),
-  laptop_id BIGINT,
-  PRIMARY KEY (id),
-  FOREIGN KEY (laptop_id) REFERENCES laptop(id) ON DELETE SET NULL
+	id BIGINT AUTO_INCREMENT NOT NULL,
+	first_name VARCHAR(20),
+	last_name VARCHAR(20),
+	ph_no VARCHAR(20),
+	email VARCHAR(25),
+	laptop_id BIGINT,
+	PRIMARY KEY (id),
+	FOREIGN KEY (laptop_id) REFERENCES laptop(id) ON DELETE SET NULL
 );
 </pre>
 
@@ -165,7 +165,27 @@ public class Person {
     </pre>
     </td>
   </tr>
+  <tr>
+    <td>
+    Creating foreign key of Laptop.
+    </td>
+    <td>
+    "mappedBy" tells the Hibernate that the foreign key of this table is in Person Entity;
+    </td>
+  </tr>
 </table>
+- There are 5 cascade types; DETACH, MERGE, PERSIST, REFERSH and REMOVE. In here, we cascade with all of them i.e., ALL.
+- Normally, we use ALL, it's not a good idea to use ALL but if we didn't use it, it gives a problem in data persistance. So, I recommanded to use ALL.
+- The word "cascade" means it's connected. By the time, you remove a person, it will also remove the laptop which is in relationship with that person.
+- But we can fix it using @PreRemove. As by its name, it removes some property before deleting a row.
+```
+@PreRemove
+public void ignoreRemovingLaptopWhenDeletingAPerson() {
+	laptop = null;
+}
+```
+- Before deleting a person, we temporarily remove the laptop in relationship with that person by setting laptop to null.
+- So, when person is removed, laptop is not removed from the table. That's how we violates the cascade type ALL. That's how we fix it!
 
 ## Electronics Engineer-cum-J2EE Backend Developer ##
 -  Created by - Aye Chan Aung Thwin
