@@ -2,17 +2,23 @@ package acat.hibernate.view;
 
 import acat.hibernate.model.Person;
 
-public class PersonView {
+public class PersonView extends AbstractViewImpl<Person> {
 
-	public void printPersonDetails(Person model) {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3259377131146158720L;
+
+	public void printDetails(Person model) {
+		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
-		sb.append("Person [id="+model.getId());
-		sb.append(", name="+model.getFullName().getFirstName());
-		sb.append(" "+model.getFullName().getLastName());
+		sb.append("< ");
+		sb.append(model.getClass().getSimpleName());
+		sb.append(" Output>[id="+model.getId());
+		sb.append(", fullName="+model.getFullName().getFirstName()+" "+model.getFullName().getLastName());
 		sb.append(", email="+model.getEmail());
 		sb.append(", phNo="+model.getPhNo());
-		sb.append(", fk_laptop_id="+model.getLaptop().getId()+"]");
-		System.out.println(sb.toString());
+		sb.append(", foreignKeyLaptopId="+model.getLaptop().getId()+"]\n*****");
+		System.err.println(sb.toString());
 	}
-
 }

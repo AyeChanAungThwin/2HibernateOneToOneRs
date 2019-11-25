@@ -26,6 +26,16 @@ public class PersonDto extends BaseEntity<Long> implements Serializable {
 		this.phNo = person.getPhNo();
 		this.laptop = person.getLaptop();
 	}
+	
+	public Person getEntity() {
+		Person person = new Person();
+		person.setId(super.getId());
+		person.setFullName(this.fullName);
+		person.setEmail(this.email);
+		person.setPhNo(this.phNo);
+		person.setLaptop(this.laptop);
+		return person;
+	}
 
 	public FullName getFullName() {
 		return fullName;

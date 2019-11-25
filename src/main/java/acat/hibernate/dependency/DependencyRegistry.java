@@ -1,14 +1,6 @@
 package acat.hibernate.dependency;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-
-import acat.hibernate.dao.LaptopDao;
-import acat.hibernate.dao.PersonDao;
-import acat.hibernate.dto.LaptopDto;
-import acat.hibernate.dto.PersonDto;
-import acat.hibernate.model.Laptop;
-import acat.hibernate.model.Person;
 
 public class DependencyRegistry {
 
@@ -29,8 +21,7 @@ public class DependencyRegistry {
 		return instance;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Object getInstance(Class className) {
+	public Object getInstance(Class<?> className) {
 		try {
 			return className.getDeclaredConstructor().newInstance();
 		} catch (InstantiationException e) {

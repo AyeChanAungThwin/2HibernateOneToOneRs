@@ -3,9 +3,15 @@ package acat.hibernate.dao;
 import java.util.List;
 
 import acat.hibernate.model.Person;
+import acat.hibernate.repository.PersonRepository;
 
-public class PersonDao extends AbstractDao<Person> {
+public class PersonDao extends AbstractDaoImpl<Person> implements PersonRepository {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7637940035446687766L;
+
 	public PersonDao() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -46,11 +52,4 @@ public class PersonDao extends AbstractDao<Person> {
 		// TODO Auto-generated method stub
 		super.deleteById(entityId);
 	}
-
-	@Override
-	public void onDeleteSetNull(Class<?> otherEntity, Long id) {
-		// TODO Auto-generated method stub
-		super.onDeleteSetNull(otherEntity, id);
-	}
-
 }

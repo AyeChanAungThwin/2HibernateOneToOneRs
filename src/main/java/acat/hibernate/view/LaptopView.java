@@ -2,14 +2,21 @@ package acat.hibernate.view;
 
 import acat.hibernate.model.Laptop;
 
-public class LaptopView {
+public class LaptopView extends AbstractViewImpl<Laptop> {
 
-	public void printLaptopDetails(Laptop model) {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3409496659622457556L;
+
+	public void printDetails(Laptop model) {
+		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
-		sb.append("Laptop [id="+model.getId());
+		sb.append("< ");
+		sb.append(model.getClass().getSimpleName());
+		sb.append(" Output>[id="+model.getId());
 		sb.append(", brand="+model.getBrand());
-		sb.append(" "+model.getDescription()+"]");
-		System.out.println(sb.toString());
+		sb.append(", description="+model.getDescription()+"]\n*****");
+		System.err.println(sb.toString());
 	}
-
 }

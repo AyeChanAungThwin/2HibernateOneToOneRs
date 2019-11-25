@@ -3,9 +3,15 @@ package acat.hibernate.dao;
 import java.util.List;
 
 import acat.hibernate.model.Laptop;
+import acat.hibernate.repository.LaptopRepository;
 
-public class LaptopDao extends AbstractDao<Laptop> {
+public class LaptopDao extends AbstractDaoImpl<Laptop> implements LaptopRepository {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6835758574835961459L;
+
 	public LaptopDao() {
 		super();
 		// TODO Auto-generated constructor stub
