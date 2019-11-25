@@ -116,5 +116,27 @@ public void onDeleteSetNullToThisForeignKeyInPerson() {
 - There're 2 parameters in onDeleteSetNull method. The first parameter needs the class containing the foreign key and the second one needs the id of deletion.
 - We don't execute Hibernate in Entity. But this is the only way to get it easily. Or you will have to update the foreign key id in the other table everytime before you make a deletion.
 
+## Program to interfaces, not implementation
+> Okay, you might wanna know what's that mean in my code.
+<img src="images/program-to-interfaces.png" alt="Program2Interfaces">
+
+> The idea is to use the same information or job with one interface.
+- Just like the following...
+  - Cars, Motobike and Trishaws are the same type what we called vehicle. Whatever, you use one of these, you will have to drive it. We use this in the same procedure. Okay, what's gonna happen if we use this? Just keep reading it.
+<img src="images/pti-sample-one.png" alt="pti Sample 1">
+
+> The idea is to create an extendsible for modern technology.
+-  In eariler years, there're different ports for keyboard, mouse, etc. So, guess what, whenever the new device is released, we have to installed a new port. Well, that's not a good idea. So, nowadays, it has changed and use the USB port as the general port. External peripherials like keyboard, mouse, printers, scanners, etc can be connected with the same USB port. If you're are a MacBook user, you're still buying for extension because they only care how to make laptop thinner and smaller. Genius from Apple does it by changing with type-c ports. Not working without buying an extension if you wanna connect your external perpherials.
+<img src="images/pti-sample-two.png" alt="pti Sample 2">
+
+> For more information
+- What do you think how java connects different database servers. Yes, indeed. Java uses interface to extends modern technology. If there's a new database server, it connects over **Connection Interface**, so it can connects with every database servers.
+  - Java Code connecting with JDBC to database server.
+```
+Connection con = DriverManager.getConnection(jdbcUrl, connectionProps);
+```
+  - JDBC Architecture
+<img src="images/jdbc-architecture.png" alt="pti Sample 2">
+
 ## Electronics Engineer-cum-J2EE Backend Developer ##
 -  Created by - Aye Chan Aung Thwin

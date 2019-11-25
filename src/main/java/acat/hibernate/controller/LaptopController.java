@@ -5,7 +5,7 @@ import java.util.List;
 import acat.hibernate.model.Laptop;
 import acat.hibernate.view.AbstractView;
 
-public interface LaptopController<T extends Laptop> extends AbstractView<T> {
+public interface LaptopController<T extends Laptop> extends AbstractView<T>{
 
 	T findById(long id);
 	List<T> findAll();

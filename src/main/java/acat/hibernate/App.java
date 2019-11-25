@@ -8,6 +8,7 @@ import acat.hibernate.controller.PersonController;
 import acat.hibernate.controller.PersonControllerImpl;
 import acat.hibernate.dao.LaptopDao;
 import acat.hibernate.dao.PersonDao;
+import acat.hibernate.dependency.DependencyRegistry;
 import acat.hibernate.dto.LaptopDto;
 import acat.hibernate.model.FullName;
 import acat.hibernate.model.Laptop;
@@ -129,15 +130,21 @@ public class App {
 	public static void hard1() {
 		//Joining with foreign key after saving laptops!
 		
+		//Dependency
+		DependencyRegistry dependency = DependencyRegistry.getInstance();
+		
 		//Laptop Objects
-		Laptop laptop1 = new Laptop(); laptop1.setBrand("Lenovo");
+		Laptop laptop1 = (Laptop) dependency.getInstance(Laptop.class); //Same as new Laptop();
+		laptop1.setBrand("Lenovo");
 		laptop1.setDescription("It is Lenovo laptop.");
 		
-		Laptop laptop2 = new Laptop(); laptop2.setBrand("HP");
+		Laptop laptop2 = (Laptop) dependency.getInstance(Laptop.class); 
+		laptop2.setBrand("HP");
 		laptop2.setDescription("It is HP laptop.");
 		
 		//Laptop Controller
-		LaptopController<Laptop> laptopController = new LaptopControllerImpl();
+		LaptopController<Laptop> laptopController = new LaptopControllerImpl(); //Program to interfaces, not implementations
+		//LaptopController<Laptop> laptopController = (LaptopControllerImpl) dependency.getInstance(LaptopControllerImpl.class);
 		Laptop outputLaptop1 = laptopController.save(laptop1); //Save 
 		laptopController.printDetails(outputLaptop1); //Output
 		Laptop outputLaptop2 = laptopController.save(laptop2); //Save
@@ -148,7 +155,7 @@ public class App {
 		laptopController.printDetails(laptopList); //Output
 		
 		//Person Object
-		Person person = new Person();
+		Person person = (Person) dependency.getInstance(Person.class);
 		person.setFullName(new FullName("Dwayne", "Johnson"));
 		person.setEmail("dwaynejohnson@gmail.com");
 		person.setPhNo("+1549724440");
@@ -156,7 +163,7 @@ public class App {
 		person.setLaptop(laptop);
 		
 		//Person Controller
-		PersonController<Person> personController = new PersonControllerImpl();
+		PersonController<Person> personController = (PersonControllerImpl) dependency.getInstance(PersonControllerImpl.class);
 		Person outputPerson = personController.save(person); //Save
 		personController.printDetails(outputPerson); //Output
 	}
@@ -164,15 +171,20 @@ public class App {
 	public static void hard2() {
 		//Saving laptop with person
 		
+		//Dependency
+		DependencyRegistry dependency = DependencyRegistry.getInstance();
+		
 		//Laptop Objects
-		Laptop laptop1 = new Laptop(); laptop1.setBrand("Lenovo");
+		Laptop laptop1 = (Laptop) dependency.getInstance(Laptop.class);
+		laptop1.setBrand("Lenovo");
 		laptop1.setDescription("It is Lenovo laptop.");
 		
-		Laptop laptop2 = new Laptop(); laptop2.setBrand("HP");
+		Laptop laptop2 = (Laptop) dependency.getInstance(Laptop.class);
+		laptop2.setBrand("HP");
 		laptop2.setDescription("It is HP laptop.");
 		
 		//Laptop Controller
-		LaptopController<Laptop> laptopController = new LaptopControllerImpl();
+		LaptopController<Laptop> laptopController = (LaptopControllerImpl) dependency.getInstance(LaptopControllerImpl.class);
 		Laptop outputLaptop1 = laptopController.save(laptop1); //Save 
 		laptopController.printDetails(outputLaptop1); //Output
 		
@@ -185,14 +197,14 @@ public class App {
 		laptopController.printDetails(laptopList); //Output
 		
 		//Person Object
-		Person person = new Person();
+		Person person = (Person) dependency.getInstance(Person.class);
 		person.setFullName(new FullName("Dwayne", "Johnson"));
 		person.setEmail("dwaynejohnson@gmail.com");
 		person.setPhNo("+1549724440");
 		person.setLaptop(laptop2); //Saving laptop along with person.
 		
 		//Person Controller
-		PersonController<Person> personController = new PersonControllerImpl();
+		PersonController<Person> personController = (PersonControllerImpl) dependency.getInstance(PersonControllerImpl.class);
 		Person outputPerson = personController.save(person); //Save
 		personController.printDetails(outputPerson); //Output
 		

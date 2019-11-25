@@ -11,6 +11,10 @@ public abstract class AbstractControllerImpl<Model extends Serializable,
 											View extends AbstractView<Model>>
 implements AbstractController<Model, View> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6819029925998202865L;
 	private Model model;
 	private View view;
 	
