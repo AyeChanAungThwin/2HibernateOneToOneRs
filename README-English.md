@@ -126,7 +126,7 @@ public void onDeleteSetNullToThisForeignKeyInPerson() {
 <img src="images/pti-sample-one.png" alt="pti Sample 1">
 
 > The idea is to create an extendsible for modern technology.
--  In eariler years, there're different ports for keyboard, mouse, etc. So, guess what, whenever the new device is released, we have to installed a new port. Well, that's not a good idea. So, nowadays, it has changed and use the USB port as the general port. External peripherials like keyboard, mouse, printers, scanners, etc can be connected with the same USB port. If you're are a MacBook user, you're still buying for extension because they only care how to make laptop thinner and smaller. Genius from Apple does it by changing with type-c ports. Not working without buying an extension if you wanna connect your external perpherials.
+-  In eariler years, there're different ports for keyboard, mouse, etc. So, guess what, whenever the new device is released, we have to installed a new port. Well, that's not a good idea. So, nowadays, it has changed and use the USB port as the general port. External peripherials like keyboard, mouse, printers, scanners, etc can be connected with the same USB port. If you're are a MacBook user, you're still buying for extension because they only care how to make laptop thinner and smaller. Genius from Apple does it by changing with Type-C ports. Not working without buying an extension if you wanna connect your external perpherials like wireless laptop with USB port.
 <img src="images/pti-sample-two.png" alt="pti Sample 2">
 
 > For more information
