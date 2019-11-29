@@ -4,6 +4,7 @@
 > **Javaနဲ့ MySQL Server**ကြားမှာ _တခါမှ_ connectionချိတ်ပြီး မစမ်းဖူးသေးရင်တော့ [ဒါကိုနှိပ်ပြီး](https://www.javatpoint.com/example-to-connect-to-the-mysql-database) အရင်လေ့လာစေချင်ပါတယ်။
 
 ## လေ့လာရမယ့်အကြောင်း
+- Java Generics
 - [X] CRUD with Hibernate
 - [X] Insert data using Hibernate
 - [X] Fetch data using Hibernate
@@ -100,6 +101,13 @@ public void ignoreRemovingLaptopWhenDeletingAPerson() {
 ```
 - personတစ်ယောက်ကို deleteမလုပ်ခင် သူနဲ့ relationshipချိတ်နေတဲ့ laptopကို nullထည့်ပေးလိုက်တယ်။
 - ဒါကြောင့်မို့ personကို ဖျက်တဲ့အချိန်မှာ သူနဲ့သက်ဆိုင်နေတဲ့ laptopက မပျက်ဘဲကျန်ခဲ့လိမ့်မယ်။ ဒီလိုနည်းနဲ့ cascade type ALLကို ပြုပြင်လိုက်တာပါ။
+
+## Java Genericsကိုအသုံးပြုခြင်း
+- Generic Programmingလို Javaမှာ အသုံးပြုလို့ရအောင် Genereicsတွေကို 2004ခုနှစ်တုန်းထွက်တဲ့ J2SE 5.0မှာ စပြီးထည့်ခဲ့ပါတယ်။
+- Genericsတွေက Compile-time type safetyဖြစ်အောင် ထိန်းပေးပြီး compileမှာတင် ကျွန်တော်တို့ကို invalid typesတွေကို ပြပေးပါတယ်။
+- ဒီprojectမှာတော့ layerတွေကို SpringBootလိုမျိုးဖြစ်အောင် ရေးပေးထားပါတယ်။ ဒါကြောင့် ကိုယ်က Springကိုဖြစ်ဖြစ် SpringBoot Frameworkကိုဖြစ်ဖြစ် လုပ်ရမယ်ဆိုရင် အထောက်အကူဖြစ်ပါလိမ့်မယ်။ Presentation Layerမှာ Controllerအတွက် Personနဲ့ Laptop classအတွက် PersonControllerနဲ့ LaptopControllerဆိုပြီး ၂ခုလိုပါလိမ့်မယ်။ Objectကွဲပြီး functionတူတဲ့methodsတွေပါတယ်။ Genericsမသုံးဘူး၊ Entitiesတွေသာ အများကြီးပါမယ်ဆိုရင် ထပ်ခါထပ်ခါ အစအဆုံးပြန်ရေးနေရမယ်လေ။ Genericsသာသုံးမယ်ဆိုရင် Abstract C
+lassတစ်ခုကနေ inheritanceကိုသုံးပြီး ထည့်လိုက်တာနဲ့ လိုအပ်တဲ့ methodတွေကို IDEကနေ implementလုပ်လို့ရသွားတော့ အလုပ်ပိုမြန်တာပေါ့။
+- Compile-time type safetyကတော့ Classတိုင်းအတွက် အလုပ်လုပ်မယ်လို့တော့ အာမှမခံပါဘူး။ ဆိုလိုချင်တာက ကိုယ်ရေးတဲ့အပေါ်မူတည်တယ်။ ကိုယ်က Classအမှန်ကိုထည့်လိုက်ပေမယ့် အဲ့Classမှာ အလုပ်လုပ်ရမယ့် functionalityတွေမရှိတော့ အလုပ်မလုပ်နိုင်တာမျိုးပေါ့။
 
 ## ON DELETE SET NULLကို Hibernateမှာသုံးလို့ရအောင် ပြုလုပ်ခြင်း
 - Relational Database Serverတိုင်းအတွက် ON DELETE SET NULLသုံးလို့ရအောင်လုပ်ကြမယ်ဆိုတော့ ကျွန်တော်တို့က HQLကိုသုံးမှ အဆင်ပြေမယ်။ ကျွန်တော်ရေးထားတဲ့ Codeကိုတော့ မရှင်းပြတော့ဘူး၊ နားလည်ချင်ရင် ကိုယ့်ဘာကိုယ်သာဖတ်ကြည့်ပါ၊ ဘယ်လိုသုံးရမလဲဆိုတာပဲရှင်းပြပါမယ်။

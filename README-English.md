@@ -4,6 +4,7 @@
 > If you have _NEVER_ done a project with the basic connectivity between **Java and MySQL Server**, I suggest you learning [this](https://www.javatpoint.com/example-to-connect-to-the-mysql-database) first.
 
 ## About
+- Java Generics
 - [X] CRUD with Hibernate
 - [X] Insert data using Hibernate
 - [X] Fetch data using Hibernate
@@ -100,6 +101,12 @@ public void ignoreRemovingLaptopWhenDeletingAPerson() {
 ```
 - Before deleting a person, we temporarily remove the laptop in relationship with that person by setting laptop to null.
 - So, when person is removed, laptop is not removed from the table. That's how we violates the cascade type ALL. That's how we fix it!
+
+## Java Generics
+- Generics are a facility of generic programming that were added to the Java programming language in 2004 within version J2SE 5.0. 
+- Generics provide compile-time type safety that allows programmers to catch invalid types at compile time.
+- In this project, I separated layers and class like **SpringBoot** and so it will help you when you're moving to **Spring** or **SpringBoot** frameworks. For controllers, we need **PersonController and LaptopController** classes for Person and Laptop. There're some methods for some functions but different types of objects. Suppose you have many entities, you will have to write the same code again and again if you don't use this. In **Business layer**, you have to write Service for both Person and Laptop twice. If you used generics, you can just inherited from an abstract class and implement the required methods with the help of an IDE. The job is done faster!
+- The aspect compile-time type safety was not fully achieved, since it was shown in 2016 that it is not guaranteed in all cases. It's up to your codes. For example, you pass the correct type but the class has empty functionality and can't work.
 
 ## Creating yourself ON DELETE SET NULL with Hibernate
 - We're gonna create ON DELETE SET NULL function for every relational database server. So, we have to use HQL Query for that. I'm not gonna explain my Java code here. Just try to understand it yourself. You can use it in anywhere. I'll just tell you how you can use it.
