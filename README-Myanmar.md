@@ -105,7 +105,7 @@ public void ignoreRemovingLaptopWhenDeletingAPerson() {
 ## Java Genericsကိုအသုံးပြုခြင်း
 - Generic Programmingလို Javaမှာ အသုံးပြုလို့ရအောင် Genereicsတွေကို 2004ခုနှစ်တုန်းထွက်တဲ့ J2SE 5.0မှာ စပြီးထည့်ခဲ့ပါတယ်။
 - Genericsတွေက Compile-time type safetyဖြစ်အောင် ထိန်းပေးပြီး compileမှာတင် ကျွန်တော်တို့ကို invalid typesတွေကို ပြပေးပါတယ်။
-- ဒီprojectမှာတော့ layerတွေကို SpringBootလိုမျိုးဖြစ်အောင် ရေးပေးထားပါတယ်။ ဒါကြောင့် ကိုယ်က Springကိုဖြစ်ဖြစ် SpringBoot Frameworkကိုဖြစ်ဖြစ် လုပ်ရမယ်ဆိုရင် အထောက်အကူဖြစ်ပါလိမ့်မယ်။ Presentation Layerမှာ Controllerအတွက် Personနဲ့ Laptop classအတွက် PersonControllerနဲ့ LaptopControllerဆိုပြီး ၂ခုလိုပါလိမ့်မယ်။ Objectကွဲပြီး functionတူတဲ့methodsတွေပါတယ်။ Genericsမသုံးဘူး၊ Entitiesတွေသာ အများကြီးပါမယ်ဆိုရင် ထပ်ခါထပ်ခါ အစအဆုံးပြန်ရေးနေရမယ်လေ။ Genericsသာသုံးမယ်ဆိုရင် Abstract C
+- ဒီprojectမှာတော့ layerတွေကို SpringBootလိုမျိုးဖြစ်အောင် ရေးပေးထားပါတယ်။ ဒါကြောင့် ကိုယ်က Springကိုဖြစ်ဖြစ် SpringBoot Frameworkကိုဖြစ်ဖြစ် လုပ်ရမယ်ဆိုရင် အထောက်အကူဖြစ်ပါလိမ့်မယ်။ Presentation Layerမှာ Controllerမှာသုံးဖို့ Personနဲ့ Laptop classအတွက် PersonControllerနဲ့ LaptopControllerဆိုပြီး ၂ခုလိုပါလိမ့်မယ်။ Objectကွဲပြီး functionတူတဲ့methodsတွေပါတယ်။ Genericsမသုံးဘူး၊ Entitiesတွေသာ အများကြီးပါမယ်ဆိုရင် ထပ်ခါထပ်ခါ အစအဆုံးပြန်ရေးနေရမယ်လေ။ Genericsသာသုံးမယ်ဆိုရင် Abstract C
 lassတစ်ခုကနေ inheritanceကိုသုံးပြီး ထည့်လိုက်တာနဲ့ လိုအပ်တဲ့ methodတွေကို IDEကနေ implementလုပ်လို့ရသွားတော့ အလုပ်ပိုမြန်တာပေါ့။
 - Compile-time type safetyကတော့ Classတိုင်းအတွက် အလုပ်လုပ်မယ်လို့တော့ အာမှမခံပါဘူး။ ဆိုလိုချင်တာက ကိုယ်ရေးတဲ့အပေါ်မူတည်တယ်။ ကိုယ်က Classအမှန်ကိုထည့်လိုက်ပေမယ့် အဲ့Classမှာ အလုပ်လုပ်ရမယ့် functionalityတွေမရှိတော့ အလုပ်မလုပ်နိုင်တာမျိုးပေါ့။
 
