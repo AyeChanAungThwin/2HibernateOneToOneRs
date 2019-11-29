@@ -10,13 +10,9 @@ import acat.hibernate.repository.PersonRepository;
 
 public class PersonServiceImpl implements PersonService {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8574730237915827739L;
 	private final PersonRepository repo = new PersonDao();
 
-	public PersonDto findOne(long id) {
+	public PersonDto findOne(Long id) {
 		// TODO Auto-generated method stub
 		Person person = repo.findOne(id);
 		PersonDto dto = new PersonDto(person);
@@ -54,7 +50,7 @@ public class PersonServiceImpl implements PersonService {
 		repo.delete(dto.getEntity());
 	}
 
-	public void deleteById(long entityId) {
+	public void deleteById(Long entityId) {
 		// TODO Auto-generated method stub
 		repo.deleteById(entityId);
 	}

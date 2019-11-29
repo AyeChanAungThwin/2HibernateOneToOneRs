@@ -5,12 +5,7 @@ import java.util.List;
 import acat.hibernate.model.Laptop;
 import acat.hibernate.repository.LaptopRepository;
 
-public class LaptopDao extends AbstractDaoImpl<Laptop> implements LaptopRepository {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6835758574835961459L;
+public class LaptopDao extends AbstractDaoImpl<Laptop, Long> implements LaptopRepository {
 
 	public LaptopDao() {
 		super();
@@ -18,7 +13,7 @@ public class LaptopDao extends AbstractDaoImpl<Laptop> implements LaptopReposito
 	}
 
 	@Override
-	public Laptop findOne(long id) {
+	public Laptop findOne(Long id) {
 		// TODO Auto-generated method stub
 		return super.findOne(id);
 	}
@@ -48,7 +43,7 @@ public class LaptopDao extends AbstractDaoImpl<Laptop> implements LaptopReposito
 	}
 
 	@Override
-	public void deleteById(long entityId) {
+	public void deleteById(Long entityId) {
 		// TODO Auto-generated method stub
 		super.deleteById(entityId);
 	}

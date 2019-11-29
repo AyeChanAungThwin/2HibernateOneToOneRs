@@ -10,13 +10,9 @@ import acat.hibernate.repository.LaptopRepository;
 
 public class LaptopServiceImpl implements LaptopService {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4694922824312438039L;
 	private final LaptopRepository repo = new LaptopDao();
 
-	public LaptopDto findOne(long id) {
+	public LaptopDto findOne(Long id) {
 		// TODO Auto-generated method stub
 		Laptop laptop = repo.findOne(id);
 		LaptopDto dto = new LaptopDto(laptop);
@@ -54,7 +50,7 @@ public class LaptopServiceImpl implements LaptopService {
 		repo.delete(dto.getEntity());
 	}
 
-	public void deleteById(long entityId) {
+	public void deleteById(Long entityId) {
 		// TODO Auto-generated method stub
 		repo.deleteById(entityId);
 	}

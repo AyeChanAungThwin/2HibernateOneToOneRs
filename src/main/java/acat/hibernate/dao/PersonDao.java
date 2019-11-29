@@ -5,12 +5,7 @@ import java.util.List;
 import acat.hibernate.model.Person;
 import acat.hibernate.repository.PersonRepository;
 
-public class PersonDao extends AbstractDaoImpl<Person> implements PersonRepository {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7637940035446687766L;
+public class PersonDao extends AbstractDaoImpl<Person, Long> implements PersonRepository {
 
 	public PersonDao() {
 		super();
@@ -18,7 +13,7 @@ public class PersonDao extends AbstractDaoImpl<Person> implements PersonReposito
 	}
 
 	@Override
-	public Person findOne(long id) {
+	public Person findOne(Long id) {
 		// TODO Auto-generated method stub
 		return super.findOne(id);
 	}
@@ -48,7 +43,7 @@ public class PersonDao extends AbstractDaoImpl<Person> implements PersonReposito
 	}
 
 	@Override
-	public void deleteById(long entityId) {
+	public void deleteById(Long entityId) {
 		// TODO Auto-generated method stub
 		super.deleteById(entityId);
 	}

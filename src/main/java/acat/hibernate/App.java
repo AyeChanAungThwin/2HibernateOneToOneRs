@@ -88,7 +88,7 @@ public class App {
 		person.setFullName(new FullName("Dwayne", "Johnson"));
 		person.setEmail("dwaynejohnson@gmail.com");
 		person.setPhNo("+1549724440");
-		Laptop ltp = laptopDao.findOne(2); //select * from laptop where id=2;
+		Laptop ltp = laptopDao.findOne(2L); //select * from laptop where id=2;
 		person.setLaptop(ltp);
 		
 		PersonDao personDao = new PersonDao();
@@ -118,7 +118,7 @@ public class App {
 		}
 		*/
 		
-		Laptop laptop = laptopDao.findOne(2); //Retrieve
+		Laptop laptop = laptopDao.findOne(2L); //Retrieve
 		LaptopDto laptopDto = new LaptopDto(laptop); //DTO
 		System.out.println(laptopDto.getBrand());
 		

@@ -3,17 +3,17 @@ package acat.hibernate.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface AbstractDao<T extends Serializable> extends Serializable {
+public interface AbstractDao<Entity extends Serializable, ID extends Comparable<ID> & Serializable> {
 	
-	T findOne(long id);
+	Entity findOne(ID id);
 	
-	List<T> findAll();
+	List<Entity> findAll();
 	
-	T save(T entity);
+	Entity save(Entity entity);
 	
-	T update(T entity);
+	Entity update(Entity entity);
 	
-	void delete(T entity);
+	void delete(Entity entity);
 	
-	void deleteById(long entityId);
+	void deleteById(ID entityId);
 }

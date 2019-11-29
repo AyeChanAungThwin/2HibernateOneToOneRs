@@ -13,23 +13,19 @@ import org.hibernate.Transaction;
 import acat.hibernate.dependency.DependencyRegistry;
 import acat.hibernate.hibernateutils.HibernateUtils;
 
-public abstract class AbstractDaoImpl<T extends Serializable> implements AbstractDao<T> {
+public abstract class AbstractDaoImpl<Entity extends Serializable, ID extends Comparable<ID> & Serializable> implements AbstractDao<Entity, ID> {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4106797951677472481L;
-	private Class<T> entityName = null;
+	private Class<Entity> entityName = null;
 	private Session session = null;
 	private Transaction tx = null;
 	
 	@SuppressWarnings("unchecked")
 	public AbstractDaoImpl() {
-		this.entityName =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		this.entityName =(Class<Entity>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
-	public T findOne(long id) {
-		T entity = null;
+	public Entity findOne(ID id) {
+		Entity entity = null;
 		try {
 			startOperation();
 			entity = session.get(entityName, id);
@@ -45,11 +41,11 @@ public abstract class AbstractDaoImpl<T extends Serializable> implements Abstrac
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<T> findAll() {
-		List<T> data = null;
+	public List<Entity> findAll() {
+		List<Entity> data = null;
 		try {
 			startOperation();
-			TypedQuery<T> query = session.createQuery("from "+entityName.getName());
+			TypedQuery<Entity> query = session.createQuery("from "+entityName.getName());
 			data = query.getResultList();
 			tx.commit();
 		}
@@ -62,7 +58,7 @@ public abstract class AbstractDaoImpl<T extends Serializable> implements Abstrac
 		return data;
 	}
 	
-	public T save(T entity) {
+	public Entity save(Entity entity) {
 		try {
 			startOperation();
 			session.saveOrUpdate(entity);
@@ -78,10 +74,10 @@ public abstract class AbstractDaoImpl<T extends Serializable> implements Abstrac
 	}
 	
 	@SuppressWarnings("unchecked")
-	public T update(T entity) {
+	public Entity update(Entity entity) {
 		try {
 			startOperation();
-			entity = (T) session.merge(entity);
+			entity = (Entity) session.merge(entity);
 			tx.commit();
 		}
 		catch (HibernateException e) {
@@ -93,7 +89,7 @@ public abstract class AbstractDaoImpl<T extends Serializable> implements Abstrac
 		return entity;
 	}
 	
-	public void delete(T entity) {
+	public void delete(Entity entity) {
 		try {
 			startOperation();
 			session.delete(entity);
@@ -107,8 +103,8 @@ public abstract class AbstractDaoImpl<T extends Serializable> implements Abstrac
 		}
 	}
 	
-	public void deleteById(long entityId) {
-		T entity = findOne(entityId);
+	public void deleteById(ID entityId) {
+		Entity entity = findOne(entityId);
 		delete(entity);
 	}
 	
@@ -127,7 +123,7 @@ public abstract class AbstractDaoImpl<T extends Serializable> implements Abstrac
 			sb.append("Id=:current_id");
 			String hql = sb.toString();
 			//update Person from laptopId=null where laptopId=:?
-			TypedQuery<T> query = session.createQuery(hql);
+			TypedQuery<Entity> query = session.createQuery(hql);
 			query.setParameter("current_id", id);
 			int result = query.executeUpdate();
 			System.out.println("Result: "+result);
